@@ -29,7 +29,7 @@ def load_data(url):
     df.rename(columns = {"Metres": "Height (m)", "County": "Section"}, inplace = True)
     return df
 
-url = "https://raw.githubusercontent.com/pippinstall/streamlit-walks/main/DoBIH_v17.csv"
+url = "https://raw.githubusercontent.com/pippinstall/streamlit_projects/main/hill_walks/DoBIH.csv"
 hills = load_data(url)
 
 def create_app(df):
