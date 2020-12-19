@@ -4,7 +4,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pydeck as pdk
-from OSGridConverter import grid2latlong
 import plotly.express as px
 
 # Set Streamlit header styles
