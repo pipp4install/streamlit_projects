@@ -19,7 +19,7 @@ st.title("Revenue outturn expenditure, by authority and service in Wales (2019-2
 @st.cache
 def load_data(url):
     """Function to import csv data from GitHub repo."""
-    return pd.read_csv(url, index_col=[0])
+    return pd.read_csv(url)
 
 
 def create_app(df):
