@@ -24,6 +24,7 @@ def load_data(url):
 
 def create_app(df):
     """Displays information about selected features."""
+    df.columns
     authority = st.sidebar.multiselect("Select authority:", df['Authority'].unique())
     service = st.sidebar.multiselect("Select service:", df.loc[:, 'Education':'Total'])
 
