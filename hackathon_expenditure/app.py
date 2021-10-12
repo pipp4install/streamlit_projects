@@ -24,11 +24,12 @@ def load_data(url):
 
 def create_app(df):
     """Displays information about selected features."""
-    df
     authority = st.sidebar.multiselect("Select authority:", df['Authority'])
     service = st.sidebar.multiselect("Select service:", df.loc[:, df.columns != 'Authority'])
 
-    st.dataframe(df.loc[authority].style.background_gradient(cmap=cm))
+    st.header("View and filter table:")
+    cm = sns.light_palette("seagreen", as_cmap=True)
+    st.dataframe(selected.style.background_gradient(cmap=cm))
 
     # Main body
     st.header("View and filter on a map:")
