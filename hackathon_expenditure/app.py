@@ -9,7 +9,7 @@ import plotly.express as px
 
 # Set Streamlit header styles
 st.markdown('<style>h1{color: green; text-align:center;}</style>', unsafe_allow_html=True)
-st.markdown('<style>h2{color: black; text-align:center;}</style>', unsafe_allow_html=True)
+st.markdown('<style>h2{color: white; text-align:center;}</style>', unsafe_allow_html=True)
 st.markdown('<style>h3{color: black; text-align:center;}</style>', unsafe_allow_html=True)
 
 st.title("Revenue outturn expenditure, by authority and service in Wales (2019-2020)")
@@ -30,16 +30,16 @@ def create_app(df):
     # Main body
     st.header("View and filter on a map:")
     st.write("The shade size of the dot represents the expenditure")
-    
+
     fig = px.scatter_mapbox(selected,
                             lat = "Coorindates N",
                             lon = "Coorindates W",
                             hover_name = "Authority",
-                            hover_data = ["Education"],
+                            hover_data = service,
                             zoom = 8,
                             height = 300,
-                            color = 'Height (m)',
-                            size = 'Height (m)',
+                            color = service,
+                            size = service,
                             color_continuous_scale = px.colors.diverging.Portland, # https://plotly.com/python/builtin-colorscales/
                             size_max = 9)
     fig.update_layout(mapbox_style = "stamen-terrain") # open-street-map # stamen-terrain
