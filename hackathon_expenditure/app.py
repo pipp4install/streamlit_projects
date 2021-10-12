@@ -24,18 +24,12 @@ def load_data(url):
 
 def create_app(df):
     """Displays information about selected features."""
-    authority = st.sidebar.multiselect("Select authority:", df['Authority'].unique())
-
-    if authority == []:
-        selected = df
-    elif authority != []:
-        selected = df[authority]
-
-    service = st.sidebar.multiselect("Select service:", df.columns)
+    authority = st.sidebar.multiselect("Select authority:", df['Authority'])
+    service = st.sidebar.multiselect("Select service:", df.loc[:, df.columns != 'Authority'])
 
     # Main body
     st.header("View and filter on a map:")
-    st.write("The shade size of the dot represents the height of the mountain")
+    st.write("The shade size of the dot represents the expenditure")
     
     fig = px.scatter_mapbox(selected,
                             lat = "Coorindates N",
