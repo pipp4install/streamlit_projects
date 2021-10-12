@@ -28,7 +28,7 @@ def load_data(url):
     df.rename(columns = {"Metres": "Height (m)", "County": "Section"}, inplace = True)
     return df
 
-url = "https://raw.githubusercontent.com/pippinstall/hackathon_expenditure/main/per_capita.csv"
+url = "https://raw.githubusercontent.com/pippinstall/streamlit_projects/main/hackathon_expenditure/per_capita.csv"
 hills = load_data(url)
 
 def create_app(df):
