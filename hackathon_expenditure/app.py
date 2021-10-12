@@ -27,6 +27,8 @@ def create_app(df):
     authority = st.sidebar.multiselect("Select authority:", df['Authority'])
     service = st.sidebar.multiselect("Select service:", df.loc[:, df.columns != 'Authority'])
 
+    df.loc[authority]
+
     # Main body
     st.header("View and filter on a map:")
     st.write("The shade size of the dot represents the expenditure")
