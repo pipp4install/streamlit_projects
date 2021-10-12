@@ -23,8 +23,8 @@ def load_data(url):
 
 def create_app(df):
     """Displays information about selected features."""
-#     authority = st.selectbox('Select authority:', df['Authority'])
-    st.dataframe(df)
+    authority = st.selectbox('Select authority:', df['Authority'])
+    st.dataframe(df[authority])
 
 #     st.header("View and filter table:")
 #     cm = sns.light_palette("seagreen", as_cmap=True)
