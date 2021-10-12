@@ -10,7 +10,6 @@ import plotly.express as px
 # Set Streamlit header styles
 st.markdown('<style>h1{color: green; text-align:center;}</style>', unsafe_allow_html=True)
 st.markdown('<style>h2{color: white; text-align:center;}</style>', unsafe_allow_html=True)
-st.markdown('<style>h3{color: black; text-align:center;}</style>', unsafe_allow_html=True)
 
 st.title("Revenue outturn expenditure, by authority and service in Wales (2019-2020)")
 
@@ -24,8 +23,8 @@ def load_data(url):
 
 def create_app(df):
     """Displays information about selected features."""
-    authority = st.selectbox('Select authority:', df['Authority'])
-    st.write('You selected:', authority)
+#     authority = st.selectbox('Select authority:', df['Authority'])
+    st.dataframe(df)
 
 #     st.header("View and filter table:")
 #     cm = sns.light_palette("seagreen", as_cmap=True)
