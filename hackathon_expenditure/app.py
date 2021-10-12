@@ -31,7 +31,7 @@ def create_app(df):
     st.header("View and filter on a map:")
     st.write("The shade size of the dot represents the expenditure")
 
-    fig = px.scatter_mapbox(selected,
+    fig = px.scatter_mapbox(authority,
                             lat = "Coorindates N",
                             lon = "Coorindates W",
                             hover_name = "Authority",
