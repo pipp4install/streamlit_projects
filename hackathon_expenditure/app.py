@@ -6,77 +6,36 @@ import seaborn as sns
 import pydeck as pdk
 import plotly.express as px
 
+
 # Set Streamlit header styles
 st.markdown('<style>h1{color: green; text-align:center;}</style>', unsafe_allow_html=True)
 st.markdown('<style>h2{color: black; text-align:center;}</style>', unsafe_allow_html=True)
 st.markdown('<style>h3{color: black; text-align:center;}</style>', unsafe_allow_html=True)
 
-st.title("App to find your next mountain walk.")
+st.title("Revenue outturn expenditure, by authority and service in Wales (2019-2020)")
+
 
 # Cache to improve app performance
 @st.cache
 def load_data(url):
-    """
-    Function to import csv data from GitHub repo.
-    Args:
-        url (Str): The raw URL of the GitHub page to webscrape.
-    Returns:
-        df (DataFrame): Pandas DataFrame.
-    """
-    df = pd.read_csv(url, index_col=[0])
-    df = df[["Name", "Metres", "County", "Latitude", "Longitude"]]
-    df.rename(columns = {"Metres": "Height (m)", "County": "Section"}, inplace = True)
-    return df
+    """Function to import csv data from GitHub repo."""
+    return pd.read_csv(url, index_col=[0])
 
-url = "https://raw.githubusercontent.com/pippinstall/streamlit_projects/main/hackathon_expenditure/per_capita.csv"
-hills = load_data(url)
 
 def create_app(df):
-    """
-    Function that displays information about selected mountains of interest.
-        Args: 
-            df (DataFrame): Pandas DataFrame of selected moutains.
-        Returns:
-            
-    """
-    # Height filter
-    heights = st.sidebar.slider('Select a height (m)', 
-                                int(df['Height (m)'].min()),
-                                int(df['Height (m)'].max()), 
-                                (int(df['Height (m)'].min()),
-                                 int(df['Height (m)'].max()))
-                               )
-    # Section filter
-    section = df['Section'].unique()
-    filter_section = st.sidebar.multiselect("Select a geographical area:", section)
-    
-    if filter_section == []:
-        selected = df[(df['Height (m)'] >= heights[0]) & (df['Height (m)'] <= heights[1])]
-    elif filter_section != []:
-        selected = df[(df['Height (m)'] >= heights[0]) & (df['Height (m)'] <= heights[1]) & (df['Section'].isin(filter_section))]
-    
-    # Exclude
-    names = selected['Name'].unique()
-    names = sorted(names, reverse = False)
-    options = st.sidebar.multiselect("Select mountains to exclude:", names)
-    
-    if options == []:
-        selected = selected
-    elif options != [] and filter_section == []:
-        selected = df[(df['Height (m)'] >= heights[0]) & (df['Height (m)'] <= heights[1]) & (~df['Name'].isin(options))]
-    elif options != [] and filter_section != []:
-        selected = df[(df['Height (m)'] >= heights[0]) & (df['Height (m)'] <= heights[1]) & (df['Section'].isin(filter_section)) & (~df['Name'].isin(options))]
-    
-    
+    """Displays information about selected features."""
+    authority = st.sidebar.multiselect("Select authority:", df['Authority'])
+    service = st.sidebar.multiselect("Select service:", df.loc[:, 'Education':'Total'])
+
     # Main body
     st.header("View and filter on a map:")
     st.write("The shade size of the dot represents the height of the mountain")
     
     fig = px.scatter_mapbox(selected,
-                            lat = "Latitude",
-                            lon = "Longitude",
-                            hover_name = "Name",
-                            hover_data = ["Height (m)"],
+                            lat = "Coorindates N",
+                            lon = "Coorindates W",
+                            hover_name = "Authority",
+                            hover_data = ["Education"],
                             zoom = 8,
                             height = 300,
                             color = 'Height (m)',
@@ -92,4 +51,8 @@ def create_app(df):
     cm = sns.light_palette("seagreen", as_cmap=True)
     st.dataframe(selected.style.background_gradient(cmap=cm))
 
-create_app(hills)
+
+per_capita = load_data("https://raw.githubusercontent.com/pippinstall/streamlit_projects/main/hackathon_expenditure/per_capita.csv")
+total = load_data("https://raw.githubusercontent.com/pippinstall/streamlit_projects/main/hackathon_expenditure/per_capita.csv")
+
+create_app(per_capita)
