@@ -29,7 +29,7 @@ def create_app(df):
 
     st.header("View and filter table:")
     cm = sns.light_palette("seagreen", as_cmap=True)
-    st.dataframe(selected.style.background_gradient(cmap=cm))
+    st.dataframe(df.style.background_gradient(cmap=cm))
 
     # Main body
     st.header("View and filter on a map:")
