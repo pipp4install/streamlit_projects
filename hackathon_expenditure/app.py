@@ -24,7 +24,7 @@ def load_data(url):
 
 def create_app(df):
     """Displays information about selected features."""
-    authority = st.sidebar.multiselect("Select authority:", df['Authority'])
+    authority = st.sidebar.multiselect("Select authority:", df['Authority'].unique())
     service = st.sidebar.multiselect("Select service:", df.loc[:, 'Education':'Total'])
 
     # Main body
@@ -53,6 +53,6 @@ def create_app(df):
 
 
 per_capita = load_data("https://raw.githubusercontent.com/pippinstall/streamlit_projects/main/hackathon_expenditure/per_capita.csv")
-total = load_data("https://raw.githubusercontent.com/pippinstall/streamlit_projects/main/hackathon_expenditure/per_capita.csv")
+total = load_data("https://raw.githubusercontent.com/pippinstall/streamlit_projects/main/hackathon_expenditure/total.csv")
 
 create_app(per_capita)
